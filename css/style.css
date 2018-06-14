@@ -133,9 +133,9 @@ a {
 .delete {
 	width: 50px;
 	height: 50px;
-	visibility: hidden;
 	line-height: 45px;
 	text-align: center;
+	visibility: hidden;
 	color: #ddd;
 	background: rgba(0,0,0,0.2);
 	font-size: 30px;
@@ -232,6 +232,9 @@ a {
     .sbtn {
         display: none;
     }
+    .delete {
+    	line-height: 45px;
+    }
 }
 
 @media screen and (max-width: 500px) {
@@ -248,5 +251,8 @@ a {
     }
     .sbtn {
         display: block;
+    }
+    .delete {
+    	line-height: 50px;
     }
 }
