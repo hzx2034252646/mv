@@ -1,0 +1,252 @@
+body, div, ul, li {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    padding-top: 50px;
+    background: -webkit-linear-gradient(top right, #7f7280, #3f3380);
+    background: -o-linear-gradient(top right, #7f7280, #3f3380);
+    background: -moz-linear-gradient(top right, #7f7280, #3f3380);
+    background: linear-gradient(top right, #7f7280, #3f3380);
+}
+
+ul {
+    list-style: none;
+}
+
+a {
+    text-decoration: none;
+}
+
+.header {
+    width: 100%;
+    height: 50px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    z-index: 1;
+}
+
+.active {
+    background: rgba(0, 0, 0, 0.6);
+    transition: background 2s ease;
+}
+
+.header_logo {
+    flex: 0 0 150px;
+    margin-left: 20px;
+}
+
+.header_logo a {
+    color: #ddd;
+    font-size: 20px;
+    text-shadow: 5px 5px 15px #000;
+}
+
+.header_logo a:hover {
+    color: #fff;
+}
+
+.header_search {
+    flex: 0 0 250px;
+    height: 30px;
+    margin-right: 20px;
+    border: 1px solid #ddd;
+    border-radius: 20px;
+    display: flex;
+}
+
+.header_search:hover {
+    border-color: #fff;
+}
+
+::-webkit-input-placeholder {
+    color: #fff;
+}
+
+.search_input {
+    flex: 1;
+    border: none;
+    outline: none;
+    background: none;
+    padding-left: 15px;
+    color: #fff;
+}
+
+.search_btn {
+    flex: 0 0 30px;
+    background: url('../img/sbtn.png') no-repeat;
+    background-position: 5px;
+    cursor: pointer;
+}
+
+.sbtn {
+    width: 30px;
+    height: 30px;
+    display: block;
+    background: url('../img/sbtn.png') no-repeat;
+    background-position: 5px;
+    cursor: pointer;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    display: none;
+}
+
+.mv_list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.mv_list li {
+	width: 300px;
+    margin: 20px 0;
+}
+
+.mv_list_item {
+    color: #ddd;
+    font-size: 14px;
+    font-family: '微软雅黑', sans-serif;
+    box-shadow: 0 0 15px #ddd;
+    cursor: pointer;
+    transition: box-shadow 1s ease;
+}
+
+.cover {
+    width: 100%;
+    height: 169px;
+    display: block;
+    overflow: hidden;
+    position: relative;
+}
+
+.cover img {
+    width: 100%;
+    height: 100%;
+    transition: all 1s ease;
+}
+
+.delete {
+	width: 50px;
+	height: 50px;
+	visibility: hidden;
+	line-height: 45px;
+	text-align: center;
+	color: #ddd;
+	background: rgba(0,0,0,0.2);
+	font-size: 30px;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	margin-left: -25px;
+	margin-top: -25px;
+	border-radius: 50%;
+	transition: background-color 1s ease;
+}
+
+.mv_list_item:hover {
+    box-shadow: 0 0 30px #fff;
+}
+
+.mv_list_item:hover img {
+    transform: scale(1.2);
+}
+
+.mv_list_item:hover .delete {
+	visibility: visible;
+	background: rgba(0,0,0,0.8);
+}
+
+.title, .singer {
+    padding: 5px;
+    display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    box-sizing: padding-box;
+}
+
+.wave {
+    width: 10px;
+    height: 10px;
+    display: inline-block;
+    background: url('../img/wave.gif') no-repeat;
+    margin-right: 10px;
+}
+
+.tip {
+    margin: 20px 0;
+    text-align: center;
+    color: #ddd;
+    display: none;
+}
+
+.setting {
+	padding: 5px 0;
+    background: #fff;
+    font-size: 14px;
+    font-family: '微软雅黑', sans-serif;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 99;
+    box-shadow: 0 0 15px #fff;
+    border-radius: 3px;
+    display: none;
+}
+
+.setting li {
+    padding: 10px;
+    cursor: pointer;
+}
+
+.setting li:hover {
+	color: #fff;
+    background: -webkit-linear-gradient(right, #7f7280, #3f3380);
+    background: -o-linear-gradient(right, #7f7280, #3f3380);
+    background: -moz-linear-gradient(right, #7f7280, #3f3380);
+    background: linear-gradient(right, #7f7280, #3f3380);
+}
+
+.li-active {
+	color: #fff;
+	background: -webkit-linear-gradient(right, #7f7280, #3f3380);
+    background: -o-linear-gradient(right, #7f7280, #3f3380);
+    background: -moz-linear-gradient(right, #7f7280, #3f3380);
+    background: linear-gradient(right, #7f7280, #3f3380);
+}
+
+@media screen and (min-width: 500px) {
+    .header_search {
+        flex: 0 0 250px;
+        height: 30px;
+        margin-right: 20px;
+        border: 1px solid #ddd;
+        border-radius: 20px;
+        display: flex;
+    }
+    .sbtn {
+        display: none;
+    }
+}
+
+@media screen and (max-width: 500px) {
+    .header_search {
+        display: none;
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        border-radius: 0;
+        border: none;
+        position: absolute;
+        top: 0;
+        right: 0;
+    }
+    .sbtn {
+        display: block;
+    }
+}
