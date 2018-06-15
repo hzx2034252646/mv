@@ -1,14 +1,9 @@
 $(function() {
     var baseURL = 'https://api.imjad.cn/cloudmusic/',
-        isMobile = window.outerWidth < 500 ? true : false,
         search_mv = [],
         keyword = '',
         page = 1,
         quality = '480';
-
-    window.onresize = function() {
-        isMobile = window.outerWidth < 500 ? true : false;
-    }
 
     function scroll() {
         var scrollTop = window.pageYOffset;
@@ -32,7 +27,7 @@ $(function() {
         $('.tip').hide();
         $('.loading').show();
         $(window).unbind('scroll', scroll);
-        $.getJSON(baseURL, 'type=search&search_type=1004&s=' + s + '&offset=' + (page - 1), function(data) {
+        $.getJSON(baseURL, 'type=search&search_type=1004&s=' + s + '&offset=' + (page - 1)*20, function(data) {
             $('.loading').hide();
             data = data.result.mvs;
             var singer, len, cover,
@@ -95,12 +90,6 @@ $(function() {
         searchMV(keyword, page);
     }
     $('.search_input').keyup(function(ev) {
-        var s = $.trim($('.search_input').val());
-        if (!s && isMobile) {
-            $('.header_search').hide();
-            $('.header_logo').show();
-            $('.sbtn').show();
-        }
         if (ev.which == 13) {
             search();
         }
@@ -145,7 +134,8 @@ $(function() {
         var id = this.id;
         $.getJSON(baseURL, 'type=mv&id=' + id, function(data) {
             var url = data.data.brs[quality];
-            window.open('javascript: location.replace("' + url + '")');
+            window.open(url);
+            // window.open('javascript: location.replace("' + url + '")');
             var mv = JSON.parse(localStorage.getItem('mv')) || [],
                 json = search_mv.find(item => item.id == id) || mv.find(item => item.id == id);
             var index = mv.findIndex(item => item.id == id);
