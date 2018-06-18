@@ -1,9 +1,30 @@
-$(function() {
+$(function () {
     var baseURL = 'https://api.imjad.cn/cloudmusic/',
         search_mv = [],
         keyword = '',
         page = 1,
         quality = '480';
+
+    if (!Array.prototype.find) {
+        Array.prototype.find = function (callback) {
+            var len = this.length;
+            for (var i = 0; i < len; i++) {
+                if (callback(this[i], i)) {
+                    return this[i];
+                }
+            }
+            return undefined;
+        }
+        Array.prototype.findIndex = function (callback) {
+            var len = this.length;
+            for (var i = 0; i < len; i++) {
+                if (callback(this[i], i)) {
+                    return i;
+                }
+            }
+            return -1;
+        }
+    }
 
     function scroll() {
         var scrollTop = window.pageYOffset;
@@ -14,7 +35,7 @@ $(function() {
         }
     }
     $(window).bind('scroll', scroll);
-    $(window).scroll(function() {
+    $(window).scroll(function () {
         var scrollTop = window.pageYOffset;
         if (scrollTop > 0) {
             $('.header').addClass('active')
@@ -27,13 +48,13 @@ $(function() {
         $('.tip').hide();
         $('.loading').show();
         $(window).unbind('scroll', scroll);
-        $.getJSON(baseURL, 'type=search&search_type=1004&s=' + s + '&offset=' + (page - 1)*20, function(data) {
+        $.getJSON(baseURL, 'type=search&search_type=1004&s=' + s + '&offset=' + (page - 1) * 20, function (data) {
             $('.loading').hide();
             data = data.result.mvs;
             var singer, len, cover,
                 listCount = $('.mv_list_item').length,
                 $list = $('.mv_list');
-            data.forEach(function(value, index) {
+            data.forEach(function (value, index) {
                 search_mv.push(value);
                 cover = value.cover.replace(/https:\/\/(p3|p4)/, 'https://p1');
                 singer = value.artists[0].name;
@@ -89,24 +110,24 @@ $(function() {
         $('.search_input').blur();
         searchMV(keyword, page);
     }
-    $('.search_input').keyup(function(ev) {
+    $('.search_input').keyup(function (ev) {
         if (ev.which == 13) {
             search();
         }
     })
-    $('.search_btn').click(function() {
+    $('.search_btn').click(function () {
         search();
     })
-    $('.sbtn').click(function() {
+    $('.sbtn').click(function () {
         $('.header_search').css('display', 'flex');
         $(this).hide();
         $('.header_logo').hide();
     })
-    $('.setting li').click(function() {
+    $('.setting li').click(function () {
         $(this).addClass('li-active').siblings().removeClass('li-active');
         quality = this.id;
     })
-    document.oncontextmenu = function(ev) {
+    document.oncontextmenu = function (ev) {
         var oEvent = ev || window.event;
         var x = oEvent.clientX + window.pageXOffset;
         var y = oEvent.clientY + window.pageYOffset;
@@ -127,28 +148,35 @@ $(function() {
         $('.setting').show();
         return false;
     }
-    $(document).click(function() {
+    $(document).click(function () {
         $('.setting').hide();
     })
-    $('.mv_list').delegate('.mv_list_item', 'click', function() {
+    $('.mv_list').delegate('.mv_list_item', 'click', function () {
         var id = this.id;
-        $.getJSON(baseURL, 'type=mv&id=' + id, function(data) {
+        $.getJSON(baseURL, 'type=mv&id=' + id, function (data) {
             var url = data.data.brs[quality];
             window.open(url);
-            // window.open('javascript: location.replace("' + url + '")');
             var mv = JSON.parse(localStorage.getItem('mv')) || [],
-                json = search_mv.find(item => item.id == id) || mv.find(item => item.id == id);
-            var index = mv.findIndex(item => item.id == id);
+                json = search_mv.find(function (item) {
+                    return item.id == id;
+                }) || mv.find(function (item) {
+                    return item.id == id;
+                });
+            var index = mv.findIndex(function (item) {
+                return item.id == id;
+            });
             index != -1 && mv.splice(index, 1);
             mv.unshift(json);
             localStorage.setItem('mv', JSON.stringify(mv));
         })
     })
-    $('.mv_list').delegate('.delete', 'click', function(ev) {
+    $('.mv_list').delegate('.delete', 'click', function (ev) {
         ev.stopPropagation();
         var id = $(this).parent().parent().attr('id');
         var mv = JSON.parse(localStorage.getItem('mv'))
-        var i = mv.findIndex(item => item.id == id);
+        var i = mv.findIndex(function (item) {
+            return item.id == id;
+        });
         mv.splice(i, 1);
         localStorage.setItem('mv', JSON.stringify(mv));
         $(this).parent().parent().remove();
@@ -163,11 +191,12 @@ $(function() {
             }
         }
     })
+
     function loadMV() {
         var mv = JSON.parse(localStorage.getItem('mv')) || [];
         var singer, len, cover,
             $list = $('.mv_list');
-        mv.forEach(function(value, index) {
+        mv.forEach(function (value, index) {
             cover = value.cover.replace(/https:\/\/(p3|p4)/, 'https://p1');
             singer = value.artists[0].name;
             len = value.artists.length;
