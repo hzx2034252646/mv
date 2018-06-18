@@ -158,6 +158,7 @@ $(function () {
             $('#video').attr('src', url);
             $('.bg-mask').fadeIn().css('display','flex');
             $('body').css('overflow','hidden');
+            history.pushState(null, null, document.URL);
             var mv = JSON.parse(localStorage.getItem('mv')) || [],
                 json = search_mv.find(function (item) {
                     return item.id == id;
@@ -173,10 +174,15 @@ $(function () {
         })
     })
     $('.bg-mask').click(function() {
-        $(this).fadeOut();
-        $('#video').get(0).pause();
-        $('#video').get(0).src = '';
-        $('body').css('overflow','auto');
+        history.back();
+    })
+    window.addEventListener('popstate', function() {
+        if($('.bg-mask').css('display') != 'none'){
+            $('.bg-mask').fadeOut();
+            $('#video').get(0).pause();
+            $('#video').get(0).src = '';
+            $('body').css('overflow','auto');
+        }
     })
     $('#video').click(function(ev) {
         ev.stopPropagation();
