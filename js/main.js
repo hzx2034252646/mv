@@ -191,7 +191,6 @@ $(function () {
             }
         }
     })
-
     function loadMV() {
         var mv = JSON.parse(localStorage.getItem('mv')) || [];
         var singer, len, cover,
