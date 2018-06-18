@@ -155,7 +155,9 @@ $(function () {
         var id = this.id;
         $.getJSON(baseURL, 'type=mv&id=' + id, function (data) {
             var url = data.data.brs[quality];
-            window.open(url);
+            $('#video').attr('src', url);
+            $('.bg-mask').fadeIn().css('display','flex');
+            $('body').css('overflow','hidden');
             var mv = JSON.parse(localStorage.getItem('mv')) || [],
                 json = search_mv.find(function (item) {
                     return item.id == id;
@@ -169,6 +171,18 @@ $(function () {
             mv.unshift(json);
             localStorage.setItem('mv', JSON.stringify(mv));
         })
+    })
+    $('.bg-mask').click(function() {
+        $(this).fadeOut();
+        $('#video').get(0).pause();
+        $('#video').get(0).src = '';
+        $('body').css('overflow','auto');
+    })
+    $('#video').click(function(ev) {
+        ev.stopPropagation();
+    })
+    $('.bg-mask').contextmenu(function(ev) {
+        ev.stopPropagation();
     })
     $('.mv_list').delegate('.delete', 'click', function (ev) {
         ev.stopPropagation();
