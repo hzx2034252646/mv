@@ -56,7 +56,7 @@ $(function () {
                 $list = $('.mv_list');
             data.forEach(function (value, index) {
                 search_mv.push(value);
-                cover = value.cover.replace(/https:\/\/(p3|p4)/, 'https://p1');
+                cover = value.cover.replace(/https:\/\/(p3|p4)/, 'https://p1')+ '?param=561y315';
                 singer = value.artists[0].name;
                 len = value.artists.length;
                 if (len > 1) {
@@ -83,7 +83,7 @@ $(function () {
                 $('.noMore').show();
                 $(window).unbind('scroll', scroll);
             }
-            var m = parseInt(window.innerWidth / 300);
+            var m = parseInt(window.innerWidth / $('.mv_list_item').width());
             var n = count % m;
             if (n != 0) {
                 for (var i = 0; i < m - n; i++) {
@@ -202,7 +202,7 @@ $(function () {
         $(this).parent().parent().remove();
         var listCount = mv.length,
             $list = $('.mv_list');
-        var m = parseInt(window.innerWidth / 300);
+        var m = parseInt(window.innerWidth / $('.mv_list_item').width());
         var n = listCount % m;
         $list.find('li').not('.mv_list_item').remove();
         if (n != 0) {
@@ -216,7 +216,7 @@ $(function () {
         var singer, len, cover,
             $list = $('.mv_list');
         mv.forEach(function (value, index) {
-            cover = value.cover.replace(/https:\/\/(p3|p4)/, 'https://p1');
+            cover = value.cover.replace(/https:\/\/(p3|p4)/, 'https://p1') + '?param=561y315';
             singer = value.artists[0].name;
             len = value.artists.length;
             if (len > 1) {
@@ -235,7 +235,7 @@ $(function () {
                 '</li>');
         })
         var listCount = mv.length;
-        var m = parseInt(window.innerWidth / 300);
+        var m = parseInt(window.innerWidth / $('.mv_list_item').width());
         var n = listCount % m;
         if (n != 0) {
             for (var i = 0; i < m - n; i++) {

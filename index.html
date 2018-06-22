@@ -17,6 +17,11 @@
     <title>MV-网易云音乐</title>
     <link rel="shortcur icon" href="./favicon.ico">
     <link rel="stylesheet" href="css/style.css">
+    <script>
+        var clientWidth = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+        var baseSize = clientWidth < 800 ?  (clientWidth < 500 ? 375 : 768) : 1366;
+        document.documentElement.style.fontSize = 100*clientWidth/baseSize + 'px'
+    </script>
 </head>
 
 <body>
